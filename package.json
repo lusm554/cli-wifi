@@ -1,12 +1,16 @@
 {
-  "name": "cli_wifi",
+  "name": "@loveyousomuch/wifi",
+  "private": false,
   "version": "1.0.0",
   "description": "This is a tool to quickly get password from WiFi",
   "main": "index.js",
   "scripts": {
     "wifi": "node index.js"
   },
-  "keywords": ["cli", "wifi"],
+  "keywords": [
+    "cli",
+    "wifi"
+  ],
   "author": "loveyousomuch554@gmail.com",
   "license": "ISC"
 }
