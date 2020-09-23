@@ -5,7 +5,10 @@
   "description": "This is a tool to quickly get password from WiFi",
   "main": "index.js",
   "scripts": {
-    "wifi": "node index.js"
+    "patch-release": "npm version patch && npm publish"
+  },
+  "bin": {
+    "wifi": "./index.js"
   },
   "keywords": [
     "cli",
