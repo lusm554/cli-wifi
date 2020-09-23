@@ -4,9 +4,9 @@
   "description": "This is a tool to quickly get password from WiFi",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "wifi": "node index.js"
   },
-  "keywords": [],
+  "keywords": ["cli", "wifi"],
   "author": "loveyousomuch554@gmail.com",
   "license": "ISC"
 }
