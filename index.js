@@ -2,20 +2,35 @@ const { spawn } = require('child_process')
 
 // Get network name 
 const getWiFiName = spawn('networksetup', ['-getairportnetwork', 'en0'])
+errorHandler(getWiFiName, 'networksetup')
+
+function errorHandler(target, commandName) {
+  target.stderr.on('data', (data) => {
+    console.error(`${commandName} stderr: ${data}`);
+  });
+
+  target.on('close', (code) => {
+    if(code === 0) return;
+
+    console.log(`${commandName} process exited with code ${code}`);
+  })
+}
 
 getWiFiName.stdout.on('data', (data) => {
-  // console.log(`stdout: ${data}`);
-  console.log(data.toString())
+  /**
+   * Convert data from buffer to string
+   * get the name of the WiFi and remove the spaces 
+   */
+  const WiFiName = data.toString().split(':')[1].trim()
+
+  getWiFiPassword(WiFiName)
 })
 
-getWiFiName.stderr.on('data', (data) => {
-  console.log(`stderr: ${data}`);
-})
+function getWiFiPassword(WiFiName) {
+  const gettingWiFiPassword = spawn('security', ['find-generic-password', '-wa', WiFiName])
+  errorHandler(gettingWiFiPassword, 'security')
 
-getWiFiName.on('error', (error) => {
-  console.error(error);
-})
-
-getWiFiName.on("close", code => {
-  console.log(`child process exited with code ${code}`);
-});
+  gettingWiFiPassword.stdout.on('data', (data) => {
+    console.log(`WiFi: ${WiFiName}\nPassword: ${data.toString()}`)
+  })
+}
